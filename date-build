@@ -1,0 +1,32 @@
+#!/bin/bash
+. $(dirname "$0")/lib-common
+
+[[ "$#" == 0 ]] && log-error "No build command" && exit
+
+load-config
+if [[ "$MODE" == sym ]]; then
+    . $(dirname "$0")/lib-sym
+    setup-wllvm
+else
+    . $(dirname "$0")/lib-dyn
+    setup-allvm
+fi
+
+case "$1" in
+	'gcc')
+		;&
+	'clang')
+		log-info "C compiler intercepted"
+		run-cc "${@:2}"
+		;;
+	'g++')
+		;&
+	'clang++')
+		log-info "C++ compiler intercepted"
+		run-cxx "${@:2}"
+		;;
+	*)
+		log-info "Custom build comand, ignoring"
+		run-program "$@"
+		;;
+esac

@@ -1,0 +1,33 @@
+#!/bin/bash
+set -eu
+. $(dirname "$0")/common
+
+KLEE_PREFIX=/opt/klee
+KLEE="$KLEE_PREFIX"/bin/klee
+
+KLEE_ARGS=(
+"-only-output-states-covering-new"
+"-libc=uclibc"
+"-posix-runtime"
+"-simplify-sym-indices"
+)
+
+[[ "$#" == 0 ]] && log-error "Usage: $(basename "$0") sym-arg-size app.bc" && exit
+
+ARG_MAX_MEMORY="${MAX_MEM:-2000}"
+SYM_ARG_SIZE="$1"
+APP_BC_PATH="$2"
+
+log-debug "Symbolic argument size = $SYM_ARG_SIZE"
+log-debug "Application is at $APP_BC_PATH"
+
+log-info "Start symbolic execution"
+KLEE_ARGS+=(
+"-max-instruction-time=30"
+"-max-memory=$ARG_MAX_MEMORY"
+"-max-sym-array-size=4096"
+)
+
+args=("$KLEE" "${KLEE_ARGS[@]}" "$APP_BC_PATH" -sym-arg "$SYM_ARG_SIZE")
+print-args "KLEE cmdline:" "${args[@]}"
+"${args[@]}"
