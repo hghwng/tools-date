@@ -3,6 +3,7 @@
 
 AFL_PREFIX=/opt/afl
 
+# Quiet by default
 export AFL_QUIET="${AFL_QUIET:-1}"
 [[ "$AFL_QUIET" == "0" ]] && unset AFL_QUIET
 
