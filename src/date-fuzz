@@ -1,33 +1,53 @@
 #!/bin/bash
 set -eu
-. $(dirname "$0")/common
+. $(dirname "$0")/lib-common
 
-KLEE_PREFIX=/opt/klee
-KLEE="$KLEE_PREFIX"/bin/klee
+sym-fuzz() {
+    local KLEE_ARGS=(
+        "-only-output-states-covering-new"
+        "-libc=uclibc"
+        "-posix-runtime"
+        "-simplify-sym-indices"
+    )
 
-KLEE_ARGS=(
-"-only-output-states-covering-new"
-"-libc=uclibc"
-"-posix-runtime"
-"-simplify-sym-indices"
-)
+    local arg_max_memory="${MAX_MEM:-2000}"
+    app_bc_path="$1"
 
-[[ "$#" == 0 ]] && log-error "Usage: $(basename "$0") sym-arg-size app.bc" && exit
+    log-debug "Symbolic argument size = $SYM_ARG_SIZE"
+    log-debug "Application is at $app_bc_path"
 
-ARG_MAX_MEMORY="${MAX_MEM:-2000}"
-SYM_ARG_SIZE="$1"
-APP_BC_PATH="$2"
+    log-info "Starting symbolic execution"
+    klee_args+=(
+        "-max-instruction-time=30"
+        "-max-memory=$arg_max_memory"
+        "-max-sym-array-size=4096"
+    )
 
-log-debug "Symbolic argument size = $SYM_ARG_SIZE"
-log-debug "Application is at $APP_BC_PATH"
+    args=("$KLEE" "${KLEE_ARGS[@]}" "$app_bc_path" -sym-arg "$SYM_ARG_SIZE")
+    print-args "KLEE cmdline:" "${args[@]}"
+    "${args[@]}"
+}
 
-log-info "Start symbolic execution"
-KLEE_ARGS+=(
-"-max-instruction-time=30"
-"-max-memory=$ARG_MAX_MEMORY"
-"-max-sym-array-size=4096"
-)
+dyn-fuzz() {
+    # TODO more afl tuning here
+    local args=("$AFL_PREFIX/bin/afl-fuzz" "$@")
+    print-args "AFL cmdline:" "${args[@]}"
+    "${args[@]}"
+}
 
-args=("$KLEE" "${KLEE_ARGS[@]}" "$APP_BC_PATH" -sym-arg "$SYM_ARG_SIZE")
-print-args "KLEE cmdline:" "${args[@]}"
-"${args[@]}"
+usage() {
+    local prog="$(basename "$0")"
+    log-error "Usage\n" \
+              "    $prog app\n"
+}
+
+[[ "$#" == 0 ]] && usage
+
+load-config
+if [[ "$MODE" == sym ]]; then
+    . $(dirname "$0")/lib-sym
+    sym-fuzz "$1.bc"
+else
+    . $(dirname "$0")/lib-dyn
+    dyn-fuzz "$@"
+fi
