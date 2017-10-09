@@ -82,7 +82,8 @@ run-program() {
 
 run-cc() {
     args=("$CC" "${@:1}" "${EXT_ARGS[@]}")
-    print-args "Command to execute:" "${args[@]}" "${args[@]}"
+    print-args "Command to execute:" "${args[@]}"
+    "${args[@]}"
 }
 
 run-cxx() {
