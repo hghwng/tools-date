@@ -16,6 +16,8 @@ CXX="$TOOLCHAIN_PREFIX/clang++"
 
 # =========== Variables ===========
 declare -a EXT_ARGS=()
+declare -a CXXFLAGS=()
+declare -a LDFLAGS=()
 
 # =========== Loggers ===========
 
