@@ -12,8 +12,6 @@ export PATH="/opt/tsmart-date:$PATH"
 
 或是直接将上述内容添加至 `~/.bashrc` 等配置文件中。
 
-TSmart-DATE 依赖系统中已有的 Clang 5 编译器。请确保存在 `/usr/bin/clang`。
-
 ## 符号执行
 
 ### 配置和构建

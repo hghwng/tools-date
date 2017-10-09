@@ -6,7 +6,7 @@ set -eu
 TOOLCHAIN_PREFIX=/tmp/toolchain
 CONFIG_PATH="$TOOLCHAIN_PREFIX/config"
 AS_PREFIX=/usr
-SLLVM_PREFIX=/usr
+SLLVM_PREFIX=/opt/llvm5
 
 # =========== Constants ===========
 
