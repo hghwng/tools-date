@@ -60,7 +60,7 @@ setup-toolchain() {
 
 save-config() {
     cat > "$TOOLCHAIN_PREFIX/config" <<EOF
-# Configure for TSmart-DATE, don't edit!
+# Configuration for TSmart-DATE, don't edit!
 MODE="$1"
 SYM_ARG_SIZE="$2"
 EOF
