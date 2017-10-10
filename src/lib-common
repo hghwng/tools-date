@@ -50,7 +50,7 @@ inject-flags() {
 }
 
 inject-compilers() {
-    EXT_ARGS+=("CC=$CC" "CXX=$CXX")
+    EXT_ARGS+=("CC=$CC" "CXX=$CXX" "AS=$AS")
 }
 
 setup-toolchain() {
