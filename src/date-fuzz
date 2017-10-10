@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/opt/tsmart-date/tbash
 set -eu
 . $(dirname "$0")/lib-common
 
