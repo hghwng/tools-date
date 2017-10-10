@@ -12,6 +12,7 @@ if [[ "$MODE" == sym ]]; then
 else
     . $(dirname "$0")/lib-dyn
     setup-allvm
+    inject-dyn-flags
     inject-compilers
 fi
 
