@@ -16,9 +16,10 @@ CC="$TOOLCHAIN_PREFIX/clang"
 CXX="$TOOLCHAIN_PREFIX/clang++"
 
 # =========== Variables ===========
-declare -a EXT_ARGS=()
+declare -a CFLAGS=()
 declare -a CXXFLAGS=()
 declare -a LDFLAGS=()
+declare -a EXT_ARGS=()
 
 # =========== Loggers ===========
 
@@ -46,7 +47,7 @@ print-args() {
 # =========== Setup ===========
 
 inject-flags() {
-    EXT_ARGS+=("CXXFLAGS=${CXXFLAGS[*]}" "LDFLAGS=${LDFLAGS[*]}")
+    EXT_ARGS+=("CXXFLAGS=${CXXFLAGS[*]}" "CFLAGS=${CFLAGS[*]}" "LDFLAGS=${LDFLAGS[*]}")
 }
 
 inject-compilers() {
