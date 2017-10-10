@@ -23,34 +23,34 @@ declare -a LDFLAGS=()
 # =========== Loggers ===========
 
 log-debug() {
-	echo -e "\e[94m[*]\e[0m $*"
+    echo -e "\e[94m[*]\e[0m $*"
 }
 
 log-info() {
-	echo -e "\e[92m[+]\e[0m $*"
+    echo -e "\e[92m[+]\e[0m $*"
 }
 
 log-error() {
-	echo -e "\e[91m[!]\e[0m $*"
-  exit 1
+    echo -e "\e[91m[!]\e[0m $*"
+    exit 1
 }
 
 print-args() {
-	[[ "$#" -le 2 ]] && return
-	log-debug "$1"
-	for arg in "${@:2}"; do
-		log-debug "\t$arg"
-	done
+    [[ "$#" -le 2 ]] && return
+    log-debug "$1"
+    for arg in "${@:2}"; do
+        log-debug "\t$arg"
+	  done
 }
 
 # =========== Setup ===========
 
-inject-cxxflags() {
-	EXT_ARGS+=("CXXFLAGS=${CXXFLAGS[*]}" "LDFLAGS=${LDFLAGS[*]}")
+inject-flags() {
+    EXT_ARGS+=("CXXFLAGS=${CXXFLAGS[*]}" "LDFLAGS=${LDFLAGS[*]}")
 }
 
 inject-compilers() {
-	EXT_ARGS+=("CC=$CC" "CXX=$CXX")
+    EXT_ARGS+=("CC=$CC" "CXX=$CXX")
 }
 
 setup-toolchain() {
