@@ -42,6 +42,7 @@ load-config
 if [[ "$MODE" == sym ]]; then
     . $(dirname "$0")/lib-sym
     setup-wllvm
+    setup-sym-flags
     OBJ_PATH="$TOOLCHAIN_PREFIX/driver.o"
     generate-sym-driver "$OBJ_PATH"
     link-objects "$OBJ_PATH" "$@"
@@ -49,6 +50,7 @@ if [[ "$MODE" == sym ]]; then
 else
     . $(dirname "$0")/lib-dyn
     setup-allvm
+    setup-dyn-flags
     OBJ_PATH="$AFL_PREFIX/bin/afl-driver-64.o"
     link-objects "$OBJ_PATH" "$@"
 fi

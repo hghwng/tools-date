@@ -15,6 +15,7 @@ setup-dyn-flags() {
         "-fsanitize-coverage=trace-pc-guard,trace-cmp,trace-gep,trace-div")
     CFLAGS=("${opts[@]}")
     CXXFLAGS=("${opts[@]}")
+    LDFLAGS=("${opts[@]}")
 }
 
 setup-allvm() {
