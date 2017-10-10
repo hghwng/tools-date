@@ -3,11 +3,16 @@
 
 KLLVM_PREFIX=/opt/llvm
 WLLVM_PREFIX=/opt/wllvm
-CXXFLAGS=("-stdlib=libc++" "-nostdinc++" "-I$KLLVM_PREFIX/include/c++/v1" "-Qunused-arguments")
-LDFLAGS=("-stdlib=libc++" "-nostdinc++" "-L$KLLVM_PREFIX/lib" "-Wl,-rpath,$KLLVM_PREFIX/lib")
 
 KLEE_PREFIX=/opt/klee
 KLEE="$KLEE_PREFIX"/bin/klee
+
+inject-sym-flags() {
+    local stdlibopts=("-stdlib=libc++" "-nostdinc++")
+    CXXFLAGS=("${stdlibopts[@]}" "-I$KLLVM_PREFIX/include/c++/v1" "-Qunused-arguments")
+    LDFLAGS=("${stdlibopts[@]}" "-L$KLLVM_PREFIX/lib" "-Wl,-rpath,$KLLVM_PREFIX/lib")
+    inject-flags
+}
 
 setup-kllvm() {
 	log-info "Setting up bitcode toolchain (unfiltered)"
