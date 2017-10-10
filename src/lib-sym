@@ -7,11 +7,10 @@ WLLVM_PREFIX=/opt/wllvm
 KLEE_PREFIX=/opt/klee
 KLEE="$KLEE_PREFIX"/bin/klee
 
-inject-sym-flags() {
+setup-sym-flags() {
     local stdlibopts=("-stdlib=libc++" "-nostdinc++")
     CXXFLAGS=("${stdlibopts[@]}" "-I$KLLVM_PREFIX/include/c++/v1" "-Qunused-arguments")
     LDFLAGS=("${stdlibopts[@]}" "-L$KLLVM_PREFIX/lib" "-Wl,-rpath,$KLLVM_PREFIX/lib")
-    inject-flags
 }
 
 setup-kllvm() {

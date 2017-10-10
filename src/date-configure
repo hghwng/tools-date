@@ -7,12 +7,14 @@ load-config
 if [[ "$MODE" == sym ]]; then
     . $(dirname "$0")/lib-sym
     setup-kllvm
-    inject-sym-flags
+    setup-sym-flags
+    inject-flags
     inject-compilers
 else
     . $(dirname "$0")/lib-dyn
     setup-allvm
-    inject-dyn-flags
+    setup-dyn-flags
+    inject-flags
     inject-compilers
 fi
 

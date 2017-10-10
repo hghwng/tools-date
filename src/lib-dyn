@@ -7,7 +7,7 @@ AFL_PREFIX=/opt/afl
 export AFL_QUIET="${AFL_QUIET:-1}"
 [[ "$AFL_QUIET" == "0" ]] && unset AFL_QUIET
 
-inject-dyn-flags() {
+setup-dyn-flags() {
     local opts=(
         "-fno-omit-frame-pointer"
         "-g"
@@ -15,7 +15,6 @@ inject-dyn-flags() {
         "-fsanitize-coverage=trace-pc-guard,trace-cmp,trace-gep,trace-div")
     CFLAGS=("${opts[@]}")
     CXXFLAGS=("${opts[@]}")
-    inject-flags
 }
 
 setup-allvm() {

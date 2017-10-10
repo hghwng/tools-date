@@ -7,9 +7,11 @@ load-config
 if [[ "$MODE" == sym ]]; then
     . $(dirname "$0")/lib-sym
     setup-wllvm
+    setup-sym-flags
 else
     . $(dirname "$0")/lib-dyn
     setup-allvm
+    setup-dyn-flags
 fi
 
 case "$1" in
@@ -27,6 +29,7 @@ case "$1" in
         ;;
     *)
         log-info "Custom build comand, ignoring"
+        inject-flags
 		    run-program "$@"
 		    ;;
 esac
