@@ -30,7 +30,7 @@ sym-fuzz() {
 
 dyn-fuzz() {
     # TODO more afl tuning here
-    local args=("$AFL_PREFIX/bin/afl-fuzz" "$@")
+    local args=("$AFL_PREFIX/bin/afl-fuzz" "-m 20981520" "$@")
     print-args "AFL cmdline:" "${args[@]}"
     "${args[@]}"
 }
