@@ -2,7 +2,7 @@
 . $(dirname "$0")/lib-common
 
 KLLVM_PREFIX=/opt/llvm
-WLLVM_PREFIX=/opt/python
+WLLVM_PREFIX=/opt/wllvm
 
 KLEE_PREFIX=/opt/klee
 KLEE="$KLEE_PREFIX"/bin/klee
