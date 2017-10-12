@@ -3,7 +3,7 @@ set -eu
 . $(dirname "$0")/lib-common
 
 sym-fuzz() {
-    local KLEE_ARGS=(
+    local klee_args=(
         "-only-output-states-covering-new"
         "-libc=uclibc"
         "-posix-runtime"
@@ -11,7 +11,8 @@ sym-fuzz() {
     )
 
     local arg_max_memory="${MAX_MEM:-2000}"
-    app_bc_path="$1"
+    local arg_max_time="${MAX_TIME:-1200}"
+    local app_bc_path="$1"
 
     log-debug "Symbolic argument size = $SYM_ARG_SIZE"
     log-debug "Application is at $app_bc_path"
@@ -20,10 +21,11 @@ sym-fuzz() {
     klee_args+=(
         "-max-instruction-time=30"
         "-max-memory=$arg_max_memory"
+        "-max-time=$arg_max_time"
         "-max-sym-array-size=4096"
     )
 
-    args=("$KLEE" "${KLEE_ARGS[@]}" "$app_bc_path" -sym-arg "$SYM_ARG_SIZE")
+    local args=("$KLEE" "${klee_args[@]}" "$app_bc_path" -sym-arg "$SYM_ARG_SIZE")
     print-args "KLEE cmdline:" "${args[@]}"
     "${args[@]}"
 }
