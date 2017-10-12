@@ -28,7 +28,7 @@ EOF
 link-objects() {
     log-info "Linking objects"
     args=("$@" -o app)
-    run-cxx "${LDFLAGS[@]}" "${args[@]}"
+    run-cxx "${ARR_LDFLAGS[@]}" "${args[@]}"
 }
 
 extract-bitcode() {

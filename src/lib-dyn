@@ -13,9 +13,9 @@ setup-dyn-flags() {
         "-g"
         "-fsanitize=address"
         "-fsanitize-coverage=trace-pc-guard,trace-cmp,trace-gep,trace-div")
-    CFLAGS=("${opts[@]}")
-    CXXFLAGS=("${opts[@]}")
-    LDFLAGS=("${opts[@]}")
+    ARR_CFLAGS=("${opts[@]}")
+    ARR_CXXFLAGS=("${opts[@]}")
+    ARR_LDFLAGS=("${opts[@]}")
 }
 
 setup-allvm() {

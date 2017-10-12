@@ -16,10 +16,10 @@ CC="$TOOLCHAIN_PREFIX/clang"
 CXX="$TOOLCHAIN_PREFIX/clang++"
 
 # =========== Variables ===========
-declare -a CFLAGS=()
-declare -a CXXFLAGS=()
-declare -a LDFLAGS=()
-declare -a EXT_ARGS=()
+declare -a ARR_CFLAGS=()
+declare -a ARR_CXXFLAGS=()
+declare -a ARR_LDFLAGS=()
+declare -a ARR_EXT_ARGS=()
 
 # =========== Loggers ===========
 
@@ -47,11 +47,13 @@ print-args() {
 # =========== Setup ===========
 
 inject-flags() {
-    EXT_ARGS+=("CXXFLAGS=${CXXFLAGS[*]}" "CFLAGS=${CFLAGS[*]}" "LDFLAGS=${LDFLAGS[*]}")
+    local opts=("CXXFLAGS=${ARR_CXXFLAGS[*]}" "CFLAGS=${ARR_CFLAGS[*]}" "LDFLAGS=${ARR_LDFLAGS[*]}")
+    export "${opts[@]}"
 }
 
 inject-compilers() {
-    EXT_ARGS+=("CC=$CC" "CXX=$CXX" "AS=$AS")
+    local opts=("CC=$CC" "CXX=$CXX" "AS=$AS")
+    export "${opts[@]}"
 }
 
 setup-toolchain() {
@@ -79,19 +81,19 @@ load-config() {
 # =========== Wrapper ===========
 
 run-program() {
-    print-args "Additional argument(s) to pass:" "${EXT_ARGS[@]}"
+    print-args "Additional argument(s) to pass:" "${ARR_EXT_ARGS[@]}"
     log-info "Running target program"
-    "$@" "${EXT_ARGS[@]}"
+    "$@" "${ARR_EXT_ARGS[@]}"
 }
 
 run-cc() {
-    args=("$CC" "${CFLAGS[@]}" "${EXT_ARGS[@]}" "${@}")
+    args=("$CC" "${ARR_CFLAGS[@]}" "${ARR_EXT_ARGS[@]}" "${@}")
     print-args "Command to execute:" "${args[@]}"
     "${args[@]}"
 }
 
 run-cxx() {
-    args=("$CXX" "${CXXFLAGS[@]}" "${EXT_ARGS[@]}" "${@}")
+    args=("$CXX" "${ARR_CXXFLAGS[@]}" "${ARR_EXT_ARGS[@]}" "${@}")
     print-args "Command to execute:" "${args[@]}"
     "${args[@]}"
 }
