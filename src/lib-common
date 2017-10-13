@@ -16,6 +16,7 @@ CC="$TOOLCHAIN_PREFIX/clang"
 CXX="$TOOLCHAIN_PREFIX/clang++"
 
 # =========== Variables ===========
+
 declare -a ARR_CFLAGS=()
 declare -a ARR_CXXFLAGS=()
 declare -a ARR_LDFLAGS=()
@@ -47,9 +48,9 @@ print-args() {
 # =========== Setup ===========
 
 inject-flags() {
-    local opts=("CXXFLAGS=${ARR_CXXFLAGS[*]}"
-                "CFLAGS=${ARR_CFLAGS[*]}"
-                "LDFLAGS=${ARR_LDFLAGS[*]}")
+    local opts=("CXXFLAGS=${ARR_CXXFLAGS[*]} ${CXXFLAGS:-}"
+                "CFLAGS=${ARR_CFLAGS[*]} ${CFLAGS:-}"
+                "LDFLAGS=${ARR_LDFLAGS[*]} ${LDFLAGS:-}")
     export "${opts[@]}"
 }
 
