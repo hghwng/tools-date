@@ -34,8 +34,8 @@ export PATH="/opt/tsmart-date:$PATH"
 [*] LLVM is at /opt/llvm
 [*] Toolchain is at /tmp/toolchain
 [*] Additional argument(s) to pass:
-[*]     CXXFLAGS=-stdlib=libc++ -nostdinc++ -I/opt/llvm/include/c++/v1 -Qunused-arguments
-[*]     LDFLAGS=-stdlib=libc++ -nostdinc++ -L/opt/llvm/lib -Wl,-rpath,/opt/llvm/lib
+[*]     CXXFLAGS=-stdlib=libc++ -nostdinc -I/opt/llvm/include/c++/v1 -Qunused-arguments
+[*]     LDFLAGS=-stdlib=libc++ -nostdinc -L/opt/llvm/lib -Wl,-rpath,/opt/llvm/lib
 [*]     CC=/tmp/toolchain/clang
 [*]     CXX=/tmp/toolchain/clang++
 [+] Running target program

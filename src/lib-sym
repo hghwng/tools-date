@@ -8,7 +8,7 @@ KLEE_PREFIX=/opt/klee
 KLEE="$KLEE_PREFIX"/bin/klee
 
 setup-sym-flags() {
-    local stdlibopts=("-stdlib=libc++" "-nostdinc++")
+    local stdlibopts=("-stdlib=libc++" "-nostdinc")
     ARR_CXXFLAGS=("${stdlibopts[@]}" "-I$KLLVM_PREFIX/include/c++/v1" "-Qunused-arguments")
     ARR_LDFLAGS=("${stdlibopts[@]}" "-L$KLLVM_PREFIX/lib" "-Wl,-rpath,$KLLVM_PREFIX/lib")
 }
