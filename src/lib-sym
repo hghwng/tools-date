@@ -14,23 +14,23 @@ setup-sym-flags() {
 }
 
 setup-kllvm() {
-	log-info "Setting up bitcode toolchain (unfiltered)"
-	log-debug "LLVM is at $KLLVM_PREFIX"
+    log-info "Setting up bitcode toolchain (unfiltered)"
+    log-debug "LLVM is at $KLLVM_PREFIX"
 
-	setup-toolchain
-	ln -s "$KLLVM_PREFIX"/bin/clang   "$CC"
-	ln -s "$KLLVM_PREFIX"/bin/clang++ "$CXX"
-	ln -s "$AS_PREFIX"/bin/as         "$AS"
+    setup-toolchain
+    ln -s "$KLLVM_PREFIX"/bin/clang   "$CC"
+    ln -s "$KLLVM_PREFIX"/bin/clang++ "$CXX"
+    ln -s "$AS_PREFIX"/bin/as         "$AS"
 }
 
 setup-wllvm() {
-	log-info "Setting up bitcode toolchain"
-	log-debug "WLLVM is at $WLLVM_PREFIX"
+    log-info "Setting up bitcode toolchain"
+    log-debug "WLLVM is at $WLLVM_PREFIX"
 
-	setup-toolchain
-	ln -s "$WLLVM_PREFIX"/bin/wllvm    "$CC"
-	ln -s "$WLLVM_PREFIX"/bin/wllvm++  "$CXX"
-	ln -s "$AS_PREFIX"/bin/wllvm-as    "$AS"
+    setup-toolchain
+    ln -s "$WLLVM_PREFIX"/bin/wllvm    "$CC"
+    ln -s "$WLLVM_PREFIX"/bin/wllvm++  "$CXX"
+    ln -s "$AS_PREFIX"/bin/wllvm-as    "$AS"
 
-	export LLVM_COMPILER=clang LLVM_COMPILER_PATH="$KLLVM_PREFIX"/bin
+    export LLVM_COMPILER=clang LLVM_COMPILER_PATH="$KLLVM_PREFIX"/bin
 }

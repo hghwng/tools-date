@@ -30,6 +30,6 @@ case "$1" in
     *)
         log-info "Custom build comand, ignoring"
         inject-flags
-		    run-program "$@"
-		    ;;
+        run-program "$@"
+        ;;
 esac

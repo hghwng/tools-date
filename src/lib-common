@@ -41,13 +41,15 @@ print-args() {
     log-debug "$1"
     for arg in "${@:2}"; do
         log-debug "\t$arg"
-	  done
+    done
 }
 
 # =========== Setup ===========
 
 inject-flags() {
-    local opts=("CXXFLAGS=${ARR_CXXFLAGS[*]}" "CFLAGS=${ARR_CFLAGS[*]}" "LDFLAGS=${ARR_LDFLAGS[*]}")
+    local opts=("CXXFLAGS=${ARR_CXXFLAGS[*]}"
+                "CFLAGS=${ARR_CFLAGS[*]}"
+                "LDFLAGS=${ARR_LDFLAGS[*]}")
     export "${opts[@]}"
 }
 
