@@ -31,10 +31,32 @@ sym-fuzz() {
 }
 
 dyn-fuzz() {
-    # TODO more afl tuning here
-    local args=("$AFL_PREFIX/bin/afl-fuzz" "-m 20981520" "$@")
-    print-args "AFL cmdline:" "${args[@]}"
-    "${args[@]}"
+    if [[ "$1" != "-afl_mode" ]]; then
+        # local args=("$AFL_PREFIX/bin/afl-fuzz" "-m 20981520 -t 1000" "$@")
+        # print-args "AFL cmdline:" "${args[@]}"
+        # "${args[@]}"
+        tmux new -s deep_fuzzer -d
+
+        tmux send -t "deep_fuzzer" "$AFL_PREFIX/bin/afl-fuzz -i ../sym/seed -o out -m 20981520 -t 1000  -M master $@" Enter
+
+        tmux split-window -h -t "deep_fuzzer"
+        tmux send -t "deep_fuzzer" "$AFL_PREFIX/bin/afl-fuzz -i ../sym/seed -o out  -m 20981520 -t 1000 -S fuzzer1 $@" Enter
+        # 默认上下分屏
+        tmux split-window -t "deep_fuzzer"
+        tmux select-pane -L
+        tmux split-window -t "deep_fuzzer"
+        tmux send -t "deep_fuzzer" "$AFL_PREFIX/bin/afl-fuzz -i ../sym/seed -o out -m 20981520 -t 1000  -S fuzzer2 $@" Enter
+        tmux select-pane -R
+        tmux send -t "deep_fuzzer" "$AFL_PREFIX/bin/afl-fuzz -i ../sym/seed -o out  -m 20981520 -t 1000  -S fuzzer3 $@" Enter
+
+        tmux attach -t deep_fuzzer
+
+     else
+        local args=("$AFL_PREFIX/bin/afl-fuzz" "-m 20981520" "$@")
+        print-args "AFL cmdline:" "${args[@]}"
+        "${args[@]}"
+     fi
+
 }
 
 usage() {
