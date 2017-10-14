@@ -52,7 +52,7 @@ dyn-fuzz() {
         tmux attach -t deep_fuzzer
 
      else
-        local args=("$AFL_PREFIX/bin/afl-fuzz" "-m 20981520" "$@")
+        local args=("$AFL_PREFIX/bin/afl-fuzz" "-m 20981520" "${@:2}")
         print-args "AFL cmdline:" "${args[@]}"
         "${args[@]}"
      fi
