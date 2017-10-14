@@ -305,4 +305,4 @@ date-fuzz ./app
 date-fuzz -afl-mode  -afl参数  ./app
 ```
 
-可支持所有afl的参数调优，afl参数调优详见afl官方文档
+可支持所有afl的参数调优，afl参数调优详见[afl官方文档](http://lcamtuf.coredump.cx/afl/README.txt)
