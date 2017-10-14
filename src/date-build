@@ -27,6 +27,12 @@ case "$1" in
         log-info "C++ compiler intercepted"
         run-cxx "${@:2}"
         ;;
+    'make')
+        log-info "Make intercepted"
+        inject-flags
+        inject-compilers
+        run-program "$@"
+        ;;
     *)
         log-info "Custom build comand, ignoring"
         inject-flags
