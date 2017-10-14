@@ -293,9 +293,16 @@ date-link target.o src/.libs/libcares.a
 ```
 #### 默认模式下直接执行
 需要事先配置tmux运行环境 （sudo apt-get install tmux）
-直接执行 date-fuzz ./app 
+
+直接执行以下指令即可
+```sh
+date-fuzz ./app 
+```
 
 #### 本工具同样提供afl模式的运行方式
-date-fuzz -afl——mode  -afl参数  ./app
+只需在date-fuzz 后面加上-afl-mode 即可
+```sh
+date-fuzz -afl-mode  -afl参数  ./app
+```
 
-可支持afl的参数调优，afl参数调优详见afl官方文档
+可支持所有afl的参数调优，afl参数调优详见afl官方文档
