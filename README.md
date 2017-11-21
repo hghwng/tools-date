@@ -2,7 +2,8 @@ SAFL Fuzzer
 ==================
 
 ## Install
-SAFL is installed in /opt/tsmart-date/. Please configure the `PATH` environment variable in your shell first.
+You can download SAFL in [GitHub releases page](https://github.com/hghwng/tools-date/releases).
+SAFL should be extracted to the root directory of your OS. Arch Linux and Ubuntu 16.04 are tested, but it should work on other Linux distributions. Please configure the `PATH` environment variable in your shell first, to include `/opt/tsmart-date/`.
 
 Execute in shell:
 
